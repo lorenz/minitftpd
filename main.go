@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path"
 	"path/filepath"
 	"time"
 
@@ -14,7 +15,7 @@ import (
 
 // readHandler is called when client starts file download from server
 func readHandler(filename string, rf io.ReaderFrom) error {
-	fname := filepath.Join(".", filepath.Clean(filename))
+	fname := filepath.Join(".", filepath.FromSlash(path.Join("/", filename)))
 	file, err := os.Open(fname)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
