@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/pin/tftp"
+	"github.com/pin/tftp/v3"
 )
 
 // readHandler is called when client starts file download from server
@@ -39,6 +39,7 @@ func writeHandler(filename string, wt io.WriterTo) error {
 func main() {
 	s := tftp.NewServer(readHandler, writeHandler)
 	s.SetTimeout(10 * time.Second)
+	log.Printf("Starting minitftpd on port 69")
 	err := s.ListenAndServe(":69")
 	if err != nil {
 		fmt.Fprintf(os.Stdout, "server: %v\n", err)
